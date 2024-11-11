@@ -3,12 +3,14 @@ package com.example.DatabaseCRUD.models;
 import com.example.DatabaseCRUD.dto.FirmDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "firm")
+@NoArgsConstructor
 public class Firm {
     @Id
     @GeneratedValue

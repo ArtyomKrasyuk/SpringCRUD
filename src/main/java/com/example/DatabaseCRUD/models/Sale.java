@@ -2,10 +2,12 @@ package com.example.DatabaseCRUD.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "sale")
+@NoArgsConstructor
 public class Sale {
     @Id
     @GeneratedValue

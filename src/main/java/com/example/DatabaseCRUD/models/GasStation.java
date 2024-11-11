@@ -3,6 +3,7 @@ package com.example.DatabaseCRUD.models;
 import com.example.DatabaseCRUD.dto.GasStationDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "gas_station")
+@NoArgsConstructor
 public class GasStation {
     @Id
     @GeneratedValue

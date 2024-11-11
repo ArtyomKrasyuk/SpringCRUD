@@ -24,6 +24,13 @@ public class MainController {
     private SaleRepository saleRep;
 
     //-----------------------------------------------Client----------------------------------------------------
+    @GetMapping("/tables/client/{clientId}")
+    @ResponseBody
+    public ClientDTO getClient(@PathVariable int clientId){
+        Client client = clientRep.findById(clientId).orElseThrow();
+        return new ClientDTO(client);
+    }
+
     @PostMapping("/tables/client")
     public ResponseEntity<?> insertClient(@RequestBody ClientDTO client){
         clientRep.save(new Client(client));
@@ -45,6 +52,13 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     //-----------------------------------------------Firm------------------------------------------------------
+    @GetMapping("/tables/firm/{firmId}")
+    @ResponseBody
+    public FirmDTO getFirm(@PathVariable int firmId){
+        Firm firm = firmRep.findById(firmId).orElseThrow();
+        return new FirmDTO(firm);
+    }
+
     @PostMapping("/tables/firm")
     public ResponseEntity<?>  insertFirm(@RequestBody FirmDTO firm){
         firmRep.save(new Firm(firm));
@@ -66,6 +80,13 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     //-----------------------------------------------Fuel------------------------------------------------------
+    @GetMapping("/tables/fuel/{fuelId}")
+    @ResponseBody
+    public FuelDTO getFuel(@PathVariable int fuelId){
+        Fuel fuel = fuelRep.findById(fuelId).orElseThrow();
+        return new FuelDTO(fuel);
+    }
+
     @PostMapping("/tables/fuel")
     public ResponseEntity<?>  insertFuel(@RequestBody FuelDTO fuel){
         fuelRep.save(new Fuel(fuel));
@@ -124,6 +145,13 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     //-----------------------------------------------Gas Station-------------------------------------------------
+    @GetMapping("/tables/gasStation/{gasStationId}")
+    @ResponseBody
+    public GasStationDTO getGasStation(@PathVariable int gasStationId){
+        GasStation gasStation = gasStationRep.findById(gasStationId).orElseThrow();
+        return new GasStationDTO(gasStation);
+    }
+
     @PostMapping("/tables/gasStation")
     public ResponseEntity<?>  insertGasStation(@RequestBody GasStationDTO dto){
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();
@@ -150,6 +178,13 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     //-----------------------------------------------Sale-------------------------------------------------------
+    @GetMapping("/tables/sale/{saleId}")
+    @ResponseBody
+    public SaleDTO getSale(@PathVariable int saleId){
+        Sale sale = saleRep.findById(saleId).orElseThrow();
+        return new SaleDTO(sale);
+    }
+
     @PostMapping("/tables/sale")
     public ResponseEntity<?>  insertSale(@RequestBody SaleDTO dto){
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();

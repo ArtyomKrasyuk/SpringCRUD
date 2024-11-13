@@ -3,6 +3,7 @@ package com.example.DatabaseCRUD.models;
 import com.example.DatabaseCRUD.dto.FirmDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -26,6 +27,7 @@ public class Firm {
             joinColumns = @JoinColumn(name = "firm_id"),
             inverseJoinColumns = @JoinColumn(name = "fuel_id")
     )
+    @EqualsAndHashCode.Exclude
     private Set<Fuel> fuels;
     @OneToMany(mappedBy = "firm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<GasStation> gasStations;

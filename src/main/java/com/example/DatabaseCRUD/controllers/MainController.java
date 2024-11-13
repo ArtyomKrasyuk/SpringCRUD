@@ -113,6 +113,7 @@ public class MainController {
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();
         Fuel fuel = fuelRep.findById(dto.getFuelId()).orElseThrow();
         firm.addFuel(fuel);
+        firmRep.save(firm);
         return ResponseEntity.ok().build();
     }
 
@@ -123,16 +124,19 @@ public class MainController {
         if(dto.getFirmId() != firmId && dto.getFuelId() == fuelId){
             Firm newFirm = firmRep.findById(dto.getFirmId()).orElseThrow();
             oldFuel.updateFirm(oldFirm, newFirm);
+            firmRep.save(newFirm);
         }
         else if(dto.getFirmId() == firmId && dto.getFuelId() != fuelId){
             Fuel newFuel = fuelRep.findById(dto.getFuelId()).orElseThrow();
             oldFirm.updateFuel(oldFuel, newFuel);
+            firmRep.save(oldFirm);
         }
         else if(dto.getFirmId() != firmId && dto.getFuelId() != fuelId){
             Firm newFirm = firmRep.findById(dto.getFirmId()).orElseThrow();
             Fuel newFuel = fuelRep.findById(dto.getFuelId()).orElseThrow();
             oldFirm.removeFuel(oldFuel);
             newFirm.addFuel(newFuel);
+            firmRep.save(newFirm);
         }
         return ResponseEntity.ok().build();
     }
@@ -156,8 +160,8 @@ public class MainController {
     public ResponseEntity<?>  insertGasStation(@RequestBody GasStationDTO dto){
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();
         GasStation station = new GasStation(dto.getAddress(), firm);
-        firm.getGasStations().add(station);
         gasStationRep.save(station);
+        firm.getGasStations().add(station);
         return ResponseEntity.ok().build();
     }
 
@@ -191,7 +195,12 @@ public class MainController {
         Fuel fuel = fuelRep.findById(dto.getFuelId()).orElseThrow();
         GasStation gasStation = gasStationRep.findById(dto.getGasStationId()).orElseThrow();
         Client client = clientRep.findById(dto.getCardId()).orElseThrow();
-        saleRep.save(new Sale(dto.getLiters(), dto.getSaleDate(), firm, fuel, gasStation, client));
+        Sale sale = new Sale(dto.getLiters(), dto.getSaleDate(), firm, fuel, gasStation, client);
+        saleRep.save(sale);
+        firm.getSales().add(sale);
+        fuel.getSales().add(sale);
+        gasStation.getSales().add(sale);
+        client.getSales().add(sale);
         return ResponseEntity.ok().build();
     }
 

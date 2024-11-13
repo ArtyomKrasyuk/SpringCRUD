@@ -3,6 +3,7 @@ package com.example.DatabaseCRUD.models;
 import com.example.DatabaseCRUD.dto.FuelDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -22,6 +23,7 @@ public class Fuel {
     private float price;
 
     @ManyToMany(mappedBy = "fuels")
+    @EqualsAndHashCode.Exclude
     private Set<Firm> firms;
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Sale> sales;

@@ -3,6 +3,7 @@ package com.example.DatabaseCRUD.models;
 import com.example.DatabaseCRUD.dto.ClientDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -20,6 +21,7 @@ public class Client {
     private String address;
     private String phone;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<Sale> sales;
 
     public Client(ClientDTO client) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@CrossOrigin
 public class MainController {
     @Autowired
     private ClientRepository clientRep;
@@ -146,6 +147,7 @@ public class MainController {
         Firm firm = firmRep.findById(firmId).orElseThrow();
         Fuel fuel = fuelRep.findById(fuelId).orElseThrow();
         firm.removeFuel(fuel);
+        firmRep.save(firm);
         return ResponseEntity.ok().build();
     }
     //-----------------------------------------------Gas Station-------------------------------------------------
@@ -166,7 +168,7 @@ public class MainController {
     }
 
     @PatchMapping("/tables/gasStation/{gasStationId}")
-    public ResponseEntity<?>  updateGasStation(@RequestParam int gasStationId, @RequestBody GasStationDTO dto){
+    public ResponseEntity<?>  updateGasStation(@PathVariable int gasStationId, @RequestBody GasStationDTO dto){
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();
         GasStation station = gasStationRep.findById(gasStationId).orElseThrow();
         station.setAddress(dto.getAddress());
@@ -175,7 +177,7 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     @DeleteMapping("/tables/gasStation/{gasStationId}")
-    public ResponseEntity<?>  deleteGasStation(@RequestParam int gasStationId){
+    public ResponseEntity<?>  deleteGasStation(@PathVariable int gasStationId){
         GasStation station = gasStationRep.findById(gasStationId).orElseThrow();
         station.getFirm().getGasStations().remove(station);
         gasStationRep.delete(station);

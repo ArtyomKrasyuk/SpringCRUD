@@ -30,8 +30,10 @@ public class Firm {
     @EqualsAndHashCode.Exclude
     private Set<Fuel> fuels;
     @OneToMany(mappedBy = "firm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<GasStation> gasStations;
     @OneToMany(mappedBy = "firm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<Sale> sales;
 
     public Firm(FirmDTO firm){

@@ -26,6 +26,7 @@ public class Fuel {
     @EqualsAndHashCode.Exclude
     private Set<Firm> firms;
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<Sale> sales;
 
     public Fuel(FuelDTO fuel){

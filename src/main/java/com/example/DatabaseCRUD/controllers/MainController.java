@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 
 @Controller
 @CrossOrigin
@@ -109,6 +111,15 @@ public class MainController {
         return ResponseEntity.ok().build();
     }
     //--------------------------------------------Firm has Fuel-------------------------------------------------
+    @GetMapping("/tables/firmHasFuel/{firmId}")
+    @ResponseBody
+    public ArrayList<FuelDTO> readFirmHasFuel(@PathVariable int firmId){
+        Firm firm = firmRep.findById(firmId).orElseThrow();
+        var fuels = new ArrayList<FuelDTO>();
+        firm.getFuels().forEach(elem -> fuels.add(new FuelDTO(elem)));
+        return fuels;
+    }
+
     @PostMapping("/tables/firmHasFuel")
     public ResponseEntity<?>  insertFirmHasFuel(@RequestBody FirmHasFuelDTO dto){
         Firm firm = firmRep.findById(dto.getFirmId()).orElseThrow();
